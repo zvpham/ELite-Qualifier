@@ -1,7 +1,9 @@
 # Title 
 Simple (or clever and funny?) description
- ## Table of Contents - 
- [Background](#background) - [Install](#install) - [Usage](#usage)
+ ## Table of Contents 
+ - [Background](#background) 
+ - [Install](#install) 
+ - [Usage](#usage)
   ## Background 
   This is why this application exists. 
   ## Install 
