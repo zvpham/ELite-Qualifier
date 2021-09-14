@@ -1,12 +1,6 @@
-# Title 
-Simple (or clever and funny?) description
- ## Table of Contents 
- - [Background](#background) 
- - [Install](#install) 
- - [Usage](#usage)
-  ## Background 
-  This is why this application exists. 
-  ## Install 
-  These are the steps to setup your local environment to run this application. 
-  ## Usage 
-  These are the steps to use the application or interact with it. ### Any optional sections
+# This is an autocorrect program 
+  The user will input a word and the code will find a word that is close to the inputed word if it isn't an already an accepted word
+ ## Limitations
+ - can only do one word at a time
+ - does not understand grammer
+ - won't always choose an intended word

@@ -25,6 +25,8 @@ def check_errors(text, word):
         if(word == "dog" or text == "dog"):
           print(word[i])
           print(text[i])
+  if(word == "dog" or text == "dog"):
+    print(f"this is dac {error}")
   return error
 
 
@@ -42,35 +44,29 @@ def suggest(text, all_words):
    for word in all_words:
      if(word[0] ==  text[0] and (len(word) >= len(text) - 1) and len(word) <= len(text) + 1):
        possible_words.append(word)
-
-  
+  possible_correct_words = [ 
+    
+  ]
   for word in possible_words:
-    print(f"first word {word}")
+    print(f" first instance of possible word - {word}")
     temp = word 
     error =  0
+
     if(len(word) != len(text)):
       if(len(text) > len(word)):
-        print("word less length")
         temp += "**"
         error = check_errors(text, temp)
       else:
-        print("word greater length")
-        print(f"helllo len(temp)")
         error = check_errors(text,temp)
     else:
-      print("word equal length")
       temp += "*"
       error = check_errors(text,temp)
 
-    if(error > 1):
-      possible_words.remove(word)
+    if(error == 1):
+      possible_correct_words.append(word)
       print(len(possible_words))
-
     
-  print(possible_words)
-
-
-    
+  print(possible_correct_words)
 
 def main():
     all_words = load_words()
