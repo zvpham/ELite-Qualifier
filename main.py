@@ -17,17 +17,12 @@ def load_words():
 
 def check_errors(text, word):
   error  = 0
-  print(word)
+  #print(word)
   for i in range(len(text)):
     if(text[i] != word[i]):
       if(text[i] !=  word[i - 1] and text[i] != word[i + 1]):
         error += 1
-        if(word == "dog**" or text == "dog**"):
-          print(f" word found in dictionary {word[i]}")
-          print(f" this is the guessed word {text[i]}")
-  if(word == "dog**" or text == "dog**"):
-    print(f"this is dog {error}")
-  print(error)
+  #print(error)
   return error
 
 
@@ -51,7 +46,7 @@ def suggest(text, all_words):
        possible_words.append(word)
 
   for word in possible_words:
-    print(f" first instance of possible word - {word}")
+   # print(f" first instance of possible word - {word}")
     temp = word 
     error =  0
 
@@ -67,23 +62,31 @@ def suggest(text, all_words):
 
     if(error <= 1):
       possible_correct_words.append(word)
-      print(len(possible_words))
     
-  print(possible_correct_words)
+  #print(possible_correct_words)
   for i in range(len(possible_correct_words)):
     print(f"did you mean [{i}] {possible_correct_words[i]}")
   
-  choice =  int(input(" what number is the word you mean "))
-  print(possible_correct_words[choice])
+  if(len(possible_correct_words) > 0):
+    choice =  int(input(" type in the number of the word you mean to type"))
+    real_word = possible_correct_words[choice]
+  else:
+    real_word = text
+  real_word += " "
+  return real_word
 
 def main():
     all_words = load_words()
+    sentence = ""
     while True:
         print('Type some text, or type \"quit\" to stop')
         text = input(':> ')
         if ('quit' == text):
+          print(sentence)
           break
-        suggest(text, all_words)
+        sentence += suggest(text, all_words)
+
+        
 
 if __name__ == "__main__":
     main()
