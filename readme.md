@@ -4,3 +4,7 @@
  - can only do one word at a time
  - does not understand grammer
  - won't always choose an intended word
+
+## Background
+ This is one of the options for an elite qualifier project
+

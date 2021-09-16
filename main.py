@@ -20,13 +20,14 @@ def check_errors(text, word):
   print(word)
   for i in range(len(text)):
     if(text[i] != word[i]):
-      if(text[i] !=  word[i - 1] or text[i] != word[i + 1] and i != len(text)):
+      if(text[i] !=  word[i - 1] and text[i] != word[i + 1]):
         error += 1
-        if(word == "dog" or text == "dog"):
-          print(word[i])
-          print(text[i])
-  if(word == "dog" or text == "dog"):
-    print(f"this is dac {error}")
+        if(word == "dog**" or text == "dog**"):
+          print(f" word found in dictionary {word[i]}")
+          print(f" this is the guessed word {text[i]}")
+  if(word == "dog**" or text == "dog**"):
+    print(f"this is dog {error}")
+  print(error)
   return error
 
 
@@ -38,15 +39,17 @@ def suggest(text, all_words):
 
   ]
 
+  possible_correct_words = [ 
+    
+  ]
+
   if text in all_words:
     print(text + ' is a word')
   else:
    for word in all_words:
      if(word[0] ==  text[0] and (len(word) >= len(text) - 1) and len(word) <= len(text) + 1):
        possible_words.append(word)
-  possible_correct_words = [ 
-    
-  ]
+
   for word in possible_words:
     print(f" first instance of possible word - {word}")
     temp = word 
@@ -62,16 +65,21 @@ def suggest(text, all_words):
       temp += "*"
       error = check_errors(text,temp)
 
-    if(error == 1):
+    if(error <= 1):
       possible_correct_words.append(word)
       print(len(possible_words))
     
   print(possible_correct_words)
+  for i in range(len(possible_correct_words)):
+    print(f"did you mean [{i}] {possible_correct_words[i]}")
+  
+  choice =  int(input(" what number is the word you mean "))
+  print(possible_correct_words[choice])
 
 def main():
     all_words = load_words()
-    print('Type some text, or type \"quit\" to stop')
     while True:
+        print('Type some text, or type \"quit\" to stop')
         text = input(':> ')
         if ('quit' == text):
           break
