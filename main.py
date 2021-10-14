@@ -17,13 +17,26 @@ def load_words():
 
 def check_errors(text, word):
   error  = 0
+  incorrect_letter = 0
   #print(word)
   for i in range(len(text)):
     if(text[i] != word[i]):
+      incorrect_letter += 1
       if(text[i] !=  word[i - 1] and text[i] != word[i + 1]):
         error += 1
   #print(error)
-  return error
+  return [error, incorrect_letter]
+
+def ignore_words( word_list, words_shown_to_user):
+  # words_to_ignore = []
+  # print(words_shown_to_user)
+  # print(word_list)
+  ignore = input("do you want to ignore any words on the list (yes) or (no) ")
+  while (ignore ==  "yes"):
+    ignore_word = int(input("type in the number of the word "))
+    word_list.remove(words_shown_to_user[ignore_word])
+
+    ignore =  input("are there any more words you want to ignore (yes) or (no) ")
 
 
 
@@ -48,19 +61,19 @@ def suggest(text, all_words):
   for word in possible_words:
    # print(f" first instance of possible word - {word}")
     temp = word 
-    error =  0
+    errors =  0
 
     if(len(word) != len(text)):
       if(len(text) > len(word)):
         temp += "**"
-        error = check_errors(text, temp)
+        errors = check_errors(text, temp)
       else:
-        error = check_errors(text,temp)
+        errors = check_errors(text,temp)
     else:
       temp += "*"
-      error = check_errors(text,temp)
+      errors = check_errors(text,temp)
 
-    if(error <= 1):
+    if(errors[0] <= 1):
       possible_correct_words.append(word)
     
   #print(possible_correct_words)
@@ -68,10 +81,12 @@ def suggest(text, all_words):
     print(f"did you mean [{i}] {possible_correct_words[i]}")
   
   if(len(possible_correct_words) > 0):
-    choice =  int(input(" type in the number of the word you mean to type"))
+    choice =  int(input(" type in the number of the word you mean to type "))
     real_word = possible_correct_words[choice]
   else:
     real_word = text
+
+  ignore_words(all_words ,possible_correct_words)
   real_word += " "
   return real_word
 
