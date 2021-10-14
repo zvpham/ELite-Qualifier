@@ -1,5 +1,13 @@
 {
   "files": {
+    "ci.yml": [
+      {
+        "id": "e4e14717-e998-4bc9-b369-cde6aba61092",
+        "line": 7,
+        "version": 1,
+        "index": 119
+      }
+    ],
     "main.py": [
       {
         "id": "cc6a9ca0-003d-4d99-98cf-ba968f76e149",
