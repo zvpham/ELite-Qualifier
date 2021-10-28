@@ -6,8 +6,9 @@ class TestCheckErrors(unittest.TestCase):
     def test_odd_num(self):
         self.assertTrue(main.check_errors())
 
-    def test_even_num(self):
-        self.assertFalse(is_odd(2))
+    def test_gibberish_word(self):
+        self.assertTrue(main.suggest("sfesfes", main.load_words()) == "")
+
 
     # edge case
     def test_zero(self):
