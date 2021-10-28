@@ -24,8 +24,8 @@ Function: Compares the User's word to a word in the list possible_words and retu
 def check_errors(user_word, word):
   error  = 0
   for i in range(len(user_word)):
-    if(user_word[i] != word[i]):
-      if(user_word[i] !=  word[i - 1] and user_word[i] != word[i + 1]):
+    if user_word[i] != word[i]:
+      if user_word[i] !=  word[i - 1] and user_word[i] != word[i + 1]:
         error += 1
   return error
 
@@ -36,12 +36,12 @@ Parameters: word_list - a list of all possible words
 Function: asks the user if they want to remove a word from word_list and if yes choose which words out of words_shown_to_user to remove from it for the rest of the programs runtime
 """
 def ignore_words( word_list, words_shown_to_user):
-  ignore = input("do you want to ignore any words on the list (yes) or (no) ")
-  while (ignore ==  "yes"):
+  ignore = input("do you want to ignore any words on the list (y/n) ")
+  while (ignore ==  "y"):
     ignore_word = int(input("type in the number of the word "))
     word_list.remove(words_shown_to_user[ignore_word])
     print("")
-    ignore =  input("are there any more words you want to ignore (yes) or (no) ")
+    ignore =  input("are there any more words you want to ignore (y/n) ")
 
 
 """
@@ -55,13 +55,14 @@ def suggest(user_word, all_words):
 
   possible_words = []
   possible_correct_words = [ ]
-
+  is_word = False
   # checks to see if the word the user inputed was a word found in safedict_simple and if no create a list of possible words that they meant to type
   if user_word in all_words:
     print(user_word + ' is a word')
+    is_word = True
   else:
    for word in all_words:
-     if(word[0] ==  user_word[0] and (len(word) >= len(user_word) - 1) and len(word) <= len(user_word) + 1):
+     if word[0] ==  user_word[0] and (len(word) >= len(user_word) - 1) and len(word) <= len(user_word) + 1:
        possible_words.append(word)
 
   # finds amount of or letters that aren't the same within a range of one place between the word the user inputed and a possible word
@@ -69,8 +70,8 @@ def suggest(user_word, all_words):
     temp = word 
     errors =  0
 
-    if(len(word) != len(user_word)):
-      if(len(user_word) > len(word)):
+    if len(word) != len(user_word):
+      if len(user_word) > len(word):
         temp += "**"
         errors = check_errors(user_word, temp)
       else:
@@ -79,22 +80,27 @@ def suggest(user_word, all_words):
       temp += "*"
       errors = check_errors(user_word,temp)
 
-    if(errors <= 1):
+    if errors <= 1:
       possible_correct_words.append(word)
 
-  if len(possible_correct_words) == 0:
+  if  is_word == False and len(possible_correct_words) == 0:
     print(f"{user_word} isn't a word")
+    print("")
     return ""
 
   for i in range(len(possible_correct_words)):
     print(f"did you mean [{i}] {possible_correct_words[i]}")
   print("")
 
-  
-  if(len(possible_correct_words) > 0):
+  if len(possible_correct_words) > 0 and input("are any of the these words the one you meant to type (y/n) ") == "y":
     choice =  int(input(" type in the number of the word you mean to type "))
     real_word = possible_correct_words[choice]
     print("")
+    ignore_words(all_words ,possible_correct_words)
+  elif len(possible_correct_words) > 0:
+    print("I'm sorry but I couldn't find a word")
+    print("")
+    real_word = ""
     ignore_words(all_words ,possible_correct_words)
   else:
     real_word = user_word
